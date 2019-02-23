@@ -67,3 +67,32 @@ function task2()
     $diffResult = array_diff_assoc($arrNew, $arrOld);
     print_r($diffResult);
 }
+
+/**
+ * Description.
+ *
+ * @return number
+ */
+function task3()
+{
+    $numbers = [];
+    $sum = 0;
+    for ($i = 1; $i <= 50; $i++) {
+        $numbers[] = mt_rand(0, 50);
+    }
+    $stringForCvs = implode(';', $numbers);
+    file_put_contents('files/data.cvs', $stringForCvs);
+    if (($handle = fopen("files/data.cvs", "r")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+            foreach ($data as $number) {
+                if ($number % 2 === 0) {
+                    $sum += $number;
+                }
+
+            }
+        }
+        fclose($handle);
+    }
+    return $sum;
+}
+
