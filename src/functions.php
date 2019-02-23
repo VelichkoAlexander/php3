@@ -95,4 +95,21 @@ function task3()
     }
     return $sum;
 }
-
+/**
+ * Description.
+ *
+ * @return void
+ */
+function task4()
+{
+    $url = "https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json";
+    $data = file_get_contents($url);
+    $dataArray = json_decode($data, true);
+    function get_keys($item, $key)
+    {
+        if($key == 'title' || $key == 'pageid') {
+            echo "$key: $item<br>";
+        }
+    }
+    array_walk_recursive($dataArray, 'get_keys');
+}
