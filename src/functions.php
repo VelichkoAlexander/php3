@@ -38,4 +38,32 @@ function task1()
 
     }
 }
+/**
+ * Description.
+ *
+ * @return void
+ */
+function task2()
+{
+    $arrayForJson = [
+        'test1' => 1,
+        'test2' => 2,
+        'test3' => 2,
+        'test4' => ['fire' => 8]
 
+    ];
+
+    $jsonContent = json_encode($arrayForJson);
+    file_put_contents('files/output.json', $jsonContent);
+    $jsonContent = file_get_contents('files/output.json');
+    if (rand(0, 1) === 1) {
+        $arrForChange = json_decode($jsonContent, true);
+        $arrForChange['test5'] = 8;
+        file_put_contents('files/output2.json', json_encode($arrForChange));
+    }
+    $jsonContentNew = file_get_contents('files/output2.json');
+    $arrOld = json_decode($jsonContent, true);
+    $arrNew = json_decode($jsonContentNew, true);
+    $diffResult = array_diff_assoc($arrNew, $arrOld);
+    print_r($diffResult);
+}
